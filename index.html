@@ -182,7 +182,42 @@ transition:1s;
 opacity:1;
 transform:translateY(0);
 }
+body.dark{
+background:#000;
+color:#f5f5f7;
+}
 
+body.dark nav{
+background:rgba(0,0,0,0.7);
+}
+
+body.dark .card{
+background:#1d1d1f;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+body.dark a{
+color:#2997ff;
+}
+
+body.dark .hero p{
+color:#a1a1a6;
+}
+
+.theme-toggle{
+position:fixed;
+bottom:30px;
+right:30px;
+width:48px;
+height:48px;
+border-radius:50%;
+border:none;
+background:#1d1d1f;
+color:white;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
 </style>
 </head>
 
@@ -279,6 +314,33 @@ More projects coming soon.
 
 </section>
 
+<div class="card">
+
+<div class="project-img"
+style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475');">
+</div>
+
+<h3>Portfolio Website</h3>
+
+<p>
+Personal website built with HTML and hosted on GitHub Pages.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="project-img"
+style="background-image:url('https://images.unsplash.com/photo-1504639725590-34d0984388bd');">
+</div>
+
+<h3>Future Project</h3>
+
+<p>
+More projects coming soon.
+</p>
+
+</div>
 <!-- CONTACT -->
 
 <section id="contact" class="contact fade">
@@ -365,7 +427,13 @@ const y=(window.innerHeight/2-e.pageY)/40;
 img.style.transform=`translate(${x}px,${y}px)`;
 });
 });
-</script>
 
+function toggleTheme(){
+document.body.classList.toggle("dark")
+}
+</script>
+<button class="theme-toggle" onclick="toggleTheme()">
+🌙
+</button>
 </body>
 </html>
