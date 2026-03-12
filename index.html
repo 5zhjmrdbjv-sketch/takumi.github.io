@@ -213,11 +213,20 @@ text-decoration:none;
 color:inherit;
 display:block;
 }
+
+#three-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
 </style>
 </head>
 
 <body>
-
+<div id="three-bg"></div>
 <nav>
 <a href="#" style="text-decoration:none;color:inherit;">
 <strong>Takumi</strong>
@@ -391,7 +400,77 @@ document.body.style.backgroundPosition=
 0px ${scroll*0.05}px`;
 });
 
-</script>
+const scene = new THREE.Scene();
 
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+const renderer = new THREE.WebGLRenderer({alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+document.getElementById("three-bg").appendChild(renderer.domElement);
+
+camera.position.z = 5;
+
+/* particles */
+
+const geometry = new THREE.BufferGeometry();
+const vertices = [];
+
+for(let i=0;i<2000;i++){
+
+vertices.push(
+(Math.random()-0.5)*20,
+(Math.random()-0.5)*20,
+(Math.random()-0.5)*20
+);
+
+}
+
+geometry.setAttribute(
+'position',
+new THREE.Float32BufferAttribute(vertices,3)
+);
+
+const material = new THREE.PointsMaterial({
+color:0x0071e3,
+size:0.03
+});
+
+const particles = new THREE.Points(geometry,material);
+
+scene.add(particles);
+
+/* animation */
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+particles.rotation.y += 0.0008;
+particles.rotation.x += 0.0003;
+
+renderer.render(scene,camera);
+
+}
+
+animate();
+
+/* resize */
+
+window.addEventListener("resize",()=>{
+
+camera.aspect = window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 </body>
 </html>
